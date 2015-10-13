@@ -62,7 +62,7 @@ def kmeans(points, k, min_diff):
     clusters = [Cluster([p], p, p.n) for p in random.sample(points, k)]
 
     while 1:
-        plists = [[] for i in range(k)]
+        plists = [[]] * k
 
         for p in points:
             smallest_distance = float('Inf')
