@@ -1,15 +1,15 @@
 """
 K-means dominant colours
 
-Usage: colours.py [options] <filename>
+Usage: colours.py [-h] [-n N] filename
 
--n <n>    Number of dominant colours [default: 3].
+-n N    Number of dominant colours [default: 3].
 """
-
 
 from collections import namedtuple
 from math import sqrt
 import random
+import argparse
 
 try:
     import Image
@@ -88,11 +88,15 @@ def kmeans(points, k, min_diff):
 
 
 def main():
-    import sys
-    from docopt import docopt
-    args = docopt(__doc__)
+    parser = argparse.ArgumentParser(description="K-means dominant colours")
+    parser.add_argument("filename", help="The filename of the image")
+    parser.add_argument(
+        "-n", type=int, default=3, help="Number of dominant colours (default: 3)"
+    )
+    args = parser.parse_args()
 
-    print colorz(args["<filename>"], int(args["-n"]))
+    for colour in colorz(args.filename, args.n):
+        print(colour)
 
 
 if __name__ == "__main__":
